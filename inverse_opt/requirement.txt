@@ -1,12 +1,9 @@
-random
 pymatgen
 matminer
 mp-api
 megnet
 bayesian-optimization
 geneticalgorithm
-ctypes
-os
 tensorflow
 torch
 numpy
