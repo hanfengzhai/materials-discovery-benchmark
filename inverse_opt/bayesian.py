@@ -80,18 +80,12 @@ def material_evaluation(num_atoms, ele_var, mat_opt_pos):#generated_structure
     print("Bulk and shear moduli value from MEGNet:", predicted_K, predicted_G)
     
     
-    return predicted_K
+    return predicted_K - predicted_G # goal is obtain max bulk w/ min shear mod.
 
 
 def main():
-    num_atoms = random.randint(1,10) # RANDOM 1
-    # aa = generate_mat_seq(int(num_atoms))
-    # generated_structure = mat_len_judge()
-    ele_var = random.randint(1,10)
-    # pred_value = material_evaluation(int(num_atoms))
-    # pred_value = material_evaluation(generated_structure)
-    # print(aa); print(generated_structure); print("------------------------------------")
-#     print(f'The predicted K for {generated_structure.composition.reduced_formula} is {pred_value:.0f} GPa.')
+    num_atoms = random.randint(1,10) 
+    ele_var = random.randint(0,100) # initialize optimization with randomization
 
     mat_len_gen, _ = generate_mat_seq(num_atoms, ele_var)
     
