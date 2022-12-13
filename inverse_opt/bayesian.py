@@ -15,7 +15,7 @@ from bayes_opt import BayesianOptimization
 from bayes_opt.logger import JSONLogger
 from bayes_opt.event import Events
 
-MP_API_KEY="mY6W3iH4dvIgc5isyZSieJ6jpZWmkzWs"
+MP_API_KEY="YOUR_KEY"
 mpr = MPRester(MP_API_KEY)
 
 def shortlist(long_list, n=5):
@@ -44,7 +44,7 @@ def generate_mat_seq(num_atoms, ele_var): #mat. numbers, mat. elements -> length
     print("Materials Basis:", mat_candidate)
 
     # mat_found = []
-    with MPRester("mY6W3iH4dvIgc5isyZSieJ6jpZWmkzWs") as mpr:
+    with MPRester("YOUR_KEY") as mpr:
         mat_found = mpr.get_materials_ids(mat_candidate)#get something like ("Li-Fe-P-O")
         shortlist(mpr.get_materials_ids(mat_candidate))
         # print(mat_found)
@@ -62,7 +62,7 @@ def mat_len_judge(num_atoms, ele_var, mat_opt_pos):
     
     mat_opt_pos = int((mat_opt_pos/100)*(mat_len_gen-1))
     mat_id_selection = mat_found[mat_opt_pos]#get material id from MatProj
-    with MPRester("mY6W3iH4dvIgc5isyZSieJ6jpZWmkzWs") as mpr:
+    with MPRester("YOUR_KEY") as mpr:
         gen_structure = mpr.get_structure_by_material_id(mat_id_selection)#obtain the final structure
     return gen_structure
 
@@ -74,8 +74,11 @@ def material_evaluation(num_atoms, ele_var, mat_opt_pos):#generated_structure
 
     ml_model = load_model("logK_MP_2018")#load pretrained model from MEGNet
     structure_input = gen_strctr#generate_mat_seq(num_atoms)#get structure 2b predicted
-    print("checking......");print(structure_input)
+    print("Input Structure:", structure_input)
     predicted_K = 10 ** ml_model.predict_structure(structure_input).ravel()[0]#get properties from surrogate
+    predicted_G = 10 ** ml_model.predict_structure(structure_input).ravel()[1]#get properties from surrogate
+    print("Bulk and shear moduli value from MEGNet:", predicted_K, predicted_G)
+    
     
     return predicted_K
 
@@ -88,12 +91,12 @@ def main():
     # pred_value = material_evaluation(int(num_atoms))
     # pred_value = material_evaluation(generated_structure)
     # print(aa); print(generated_structure); print("------------------------------------")
-    # print(f'The predicted K for {generated_structure.composition.reduced_formula} is {pred_value:.0f} GPa.')
+#     print(f'The predicted K for {generated_structure.composition.reduced_formula} is {pred_value:.0f} GPa.')
 
     mat_len_gen, _ = generate_mat_seq(num_atoms, ele_var)
     
     pbounds = {'num_atoms': (1, 10), 'ele_var': (0, 100), 'mat_opt_pos': (0, 100)} # Set bounds
-# mat_len_gen-1
+    
     utility = UtilityFunction(kind="ucb", kappa=2.5, xi=1) # GP Upper Confidence Bound
 
     opt = BayesianOptimization(
