@@ -7,4 +7,6 @@ bayesian-optimization
 geneticalgorithm
 ctypes
 os
+tensorflow
+torch
 numpy
