@@ -31,7 +31,7 @@ from tensorflow.keras.optimizers import Adam
 from mpi4py import MPI
 
 
-MP_API_KEY="mY6W3iH4dvIgc5isyZSieJ6jpZWmkzWs"
+MP_API_KEY="YOUR_API_KEY"
 mpr = MPRester(MP_API_KEY)
 
 class MatEnv(Env):
@@ -76,7 +76,7 @@ class MatEnv(Env):
         print("Materials Basis:", mat_candidate)
 
         # mat_found = []
-        with MPRester("mY6W3iH4dvIgc5isyZSieJ6jpZWmkzWs") as mpr:
+        with MPRester("YOUR_API_KEY") as mpr:
             mat_found = mpr.get_materials_ids(mat_candidate)#get something like ("Li-Fe-P-O")
             self.shortlist(mpr.get_materials_ids(mat_candidate))
             # print(mat_found)
@@ -94,7 +94,7 @@ class MatEnv(Env):
         
         mat_opt_pos = int((mat_opt_pos/100)*(mat_len_gen-1))
         mat_id_selection = mat_found[mat_opt_pos]#get material id from MatProj
-        with MPRester("mY6W3iH4dvIgc5isyZSieJ6jpZWmkzWs") as mpr:
+        with MPRester("YOUR_API_KEY") as mpr:
             gen_structure = mpr.get_structure_by_material_id(mat_id_selection)#obtain the final structure
         return gen_structure
 
