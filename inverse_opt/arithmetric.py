@@ -12,7 +12,7 @@ from ctypes import *
 import os
 
 
-MP_API_KEY="mY6W3iH4dvIgc5isyZSieJ6jpZWmkzWs"
+MP_API_KEY="YOUR_API_KEY"
 mpr = MPRester(MP_API_KEY)
 
 def shortlist(long_list, n=5):
@@ -43,7 +43,7 @@ def generate_mat_seq(X): #mat. numbers, mat. elements -> length of mat. cand., l
     print("Materials Basis:", mat_candidate)
 
     # mat_found = []
-    with MPRester("mY6W3iH4dvIgc5isyZSieJ6jpZWmkzWs") as mpr:
+    with MPRester("YOUR_API_KEY") as mpr:
         mat_found = mpr.get_materials_ids(mat_candidate)#get something like ("Li-Fe-P-O")
         shortlist(mpr.get_materials_ids(mat_candidate))
         # print(mat_found)
@@ -64,7 +64,7 @@ def mat_len_judge(X):
     
     mat_opt_pos = int((mat_opt_pos/100)*(mat_len_gen-1))
     mat_id_selection = mat_found[mat_opt_pos]#get material id from MatProj
-    with MPRester("mY6W3iH4dvIgc5isyZSieJ6jpZWmkzWs") as mpr:
+    with MPRester("YOUR_API_KEY") as mpr:
         gen_structure = mpr.get_structure_by_material_id(mat_id_selection)#obtain the final structure
     return gen_structure
 
