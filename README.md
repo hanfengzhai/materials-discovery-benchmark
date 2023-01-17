@@ -8,7 +8,7 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/materialsvirtuallab/megnet/master)
 
-This materials discovery framework utilized the MEGNet framework, which has summarized (adapted from the original repo) as follows:
+**This materials discovery framework utilized the MEGNet framework, which has summarized (adapted from the original repo) as follows:**
 
 
 <a name="megnet-framework"></a>
@@ -86,123 +86,7 @@ folder. Each folder contains a summary of model details and benchmarks. For
 the initial models and bencharmks comparison to previous models,
 please refer to ["Graph Networks as a Universal Machine Learning Framework for Molecules and Crystals"](https://doi.org/10.1021/acs.chemmater.9b01294)[2].
 
-Below is an example of crystal model usage:
 
-```python
-from megnet.utils.models import load_model
-from pymatgen.core import Structure, Lattice
-
-# load a model in megnet.utils.models.AVAILABLE_MODELS
-model = load_model("logK_MP_2018")
-
-# We can construct a structure using pymatgen
-structure = Structure(Lattice.cubic(3.167),
-            ['Mo', 'Mo'], [[0, 0, 0], [0.5, 0.5, 0.5]])
-
-
-# Use the model to predict bulk modulus K. Note that the model is trained on
-# log10 K. So a conversion is necessary.
-predicted_K = 10 ** model.predict_structure(structure).ravel()[0]
-print(f'The predicted K for {structure.composition.reduced_formula} is {predicted_K:.0f} GPa.')
-```
-A full example is in [notebooks/crystal_example.ipynb](notebooks/crystal_example.ipynb).
-
-For molecular models, we have an example in
-[notebooks/qm9_pretrained.ipynb](notebooks/qm9_pretrained.ipynb).
-We support prediction directly from a pymatgen molecule object. With a few more
-lines of code, the model can predict from `SMILES` representation of molecules,
-as shown in the example. It is also straightforward to load a `xyz` molecule
-file with pymatgen and predict the properties using the models. However, the
-users are generally not advised to use the `qm9` molecule models for other
-molecules outside the `qm9` datasets, since the training data coverage is
-limited.
-
-Below is an example of predicting the "HOMO" of a smiles representation
-
-```python
-from megnet.utils.molecule import get_pmg_mol_from_smiles
-from megnet.models import MEGNetModel
-
-# same model API for molecule and crystals, you can also use the load_model method
-# as in previous example
-model = MEGNetModel.from_file('mvl_models/qm9-2018.6.1/HOMO.hdf5')
-# Need to convert SMILES into pymatgen Molecule
-mol = get_pmg_mol_from_smiles("C")
-model.predict_structure(mol)
-```
-
-## Training a new MEGNetModel from structures
-
-For users who wish to build a new model from a set of crystal structures with
-corresponding properties, there is a convenient `MEGNetModel` class for setting
-up and training the model. By default, the number of MEGNet blocks is 3 and the
-atomic number Z is used as the only node feature (with embedding).
-
-```python
-from megnet.models import MEGNetModel
-from megnet.data.crystal import CrystalGraph
-import numpy as np
-
-nfeat_bond = 10
-r_cutoff = 5
-gaussian_centers = np.linspace(0, r_cutoff + 1, nfeat_bond)
-gaussian_width = 0.5
-graph_converter = CrystalGraph(cutoff=r_cutoff)
-model = MEGNetModel(graph_converter=graph_converter, centers=gaussian_centers, width=gaussian_width)
-
-# Model training
-# Here, `structures` is a list of pymatgen Structure objects.
-# `targets` is a corresponding list of properties.
-model.train(structures, targets, epochs=10)
-
-# Predict the property of a new structure
-pred_target = model.predict_structure(new_structure)
-```
-Note that for realistic models, the `nfeat_bond` can be set to 100 and `epochs` can be 1000.
-In some cases, some structures within the training pool may not be valid (containing isolated atoms),
-then one needs to use `train_from_graphs` method by training only on the valid graphs.
-
-Following the previous example,
-```python
-model = MEGNetModel(graph_converter=graph_converter, centers=gaussian_centers, width=gaussian_width)
-graphs_valid = []
-targets_valid = []
-structures_invalid = []
-for s, p in zip(structures, targets):
-    try:
-        graph = model.graph_converter.convert(s)
-        graphs_valid.append(graph)
-        targets_valid.append(p)
-    except:
-        structures_invalid.append(s)
-
-# train the model using valid graphs and targets
-model.train_from_graphs(graphs_valid, targets_valid)
-```
-For model details and benchmarks, please refer to ["Graph Networks as a Universal Machine Learning Framework for Molecules and Crystals"](https://doi.org/10.1021/acs.chemmater.9b01294)[2]
-
-
-### Training multi-fidelity graph networks
-
-Please see the folder `multifidelity` for specific examples.
-
-### Pre-trained elemental embeddings
-
-A key finding of our work is that element embeddings from trained formation
-energy models encode useful chemical information that can be transferred
-learned to develop models with smaller datasets (e.g. elastic constants,
-band gaps), with better converegence and lower errors. These embeddings are
-also potentially useful in developing other ML models and applications. These
-embeddings have been made available via the following code:
-
-```python
-from megnet.data.crystal import get_elemental_embeddings
-
-el_embeddings = get_elemental_embeddings()
-```
-
-An example of transfer learning using the elemental embedding from formation
-energy to other models, please check [notebooks/transfer_learning.ipynb](notebooks/transfer_learning.ipynb).
 
 
 
