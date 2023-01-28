@@ -229,7 +229,7 @@ dqn = build_agent(model, actions)
 dqn.compile(Adam(lr=1e-3), metrics=['mae'])
 dqn.fit(env, nb_steps=60, visualize=False, verbose=1)
 
-scores = dqn.test(env, nb_episodes=60, visualize=False)
+scores = dqn.test(env, nb_episodes=20, visualize=False)
 print(np.mean(scores.history['episode_reward']))
 
 # _ = dqn.test(env, nb_episodes=10, visualize=False)
