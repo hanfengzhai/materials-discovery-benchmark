@@ -5,12 +5,14 @@
 [![Linting](https://github.com/materialsvirtuallab/megnet/workflows/Linting/badge.svg)](https://github.com/materialsvirtuallab/megnet/workflows/Linting/badge.svg)
 [![Testing](https://github.com/materialsvirtuallab/megnet/workflows/Testing%20-%20main/badge.svg)](https://github.com/materialsvirtuallab/megnet/workflows/Testing%20-%20main/badge.svg)
 
-Copyright (c) 2015, Regents of the University of California All rights reserved.
-
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/materialsvirtuallab/megnet/master)
+
 
 **This materials discovery framework utilized the MEGNet framework, which has summarized (adapted from the original repo) as follows:**
 
+
+
+Copyright (c) 2015, Regents of the University of California All rights reserved.
 
 <a name="megnet-framework"></a>
 # MEGNet framework
