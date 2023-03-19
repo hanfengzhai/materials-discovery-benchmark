@@ -7,3 +7,5 @@ geneticalgorithm
 tensorflow
 torch
 numpy
+mpi4py
+gym
