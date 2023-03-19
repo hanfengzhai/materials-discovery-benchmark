@@ -9,3 +9,4 @@ torch
 numpy
 mpi4py
 gym
+keras-rl2
