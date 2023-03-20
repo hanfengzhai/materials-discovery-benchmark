@@ -1,4 +1,7 @@
-    def convert(self, structure: Structure, state_attributes: List = None) -> Dict:
+# megnet/data/graph.py
+
+
+def convert(self, structure: Structure, state_attributes: List = None) -> Dict:
         """
         Take a pymatgen structure and convert it to a index-type graph representation
         The graph will have node, distance, index1, index2, where node is a vector of Z number
