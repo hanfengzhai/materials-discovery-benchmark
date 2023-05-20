@@ -29,11 +29,3 @@ from each other, generating an output graph.
 
 ![GraphModel diagram](resources/model_diagram_small.jpg)
 <div align='center'><strong>Figure 1. The graph network update function.</strong></div>
-
-Figure 2 shows the overall schematic of the MEGNet. Each graph network module
-is preceded by two multi-layer perceptrons (known as Dense layers in Keras
-terminology), constituting a MEGNet block. Multiple MEGNet blocks can be
-stacked, allowing for information flow across greater spatial distances. The
-number of blocks required depend on the range of interactions necessary to
-predict a target property. In the final step, a `set2set` is used to map the
-output to a scalar/vector property.
