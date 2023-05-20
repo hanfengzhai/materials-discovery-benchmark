@@ -1,11 +1,4 @@
-[![License](https://img.shields.io/github/license/materialsvirtuallab/megnet)]()
-[![Build Status](https://travis-ci.org/materialsvirtuallab/megnet.svg?branch=master)](https://travis-ci.org/materialsvirtuallab/megnet)
-[![Coverage Status](https://coveralls.io/repos/github/materialsvirtuallab/megnet/badge.svg?branch=master)](https://coveralls.io/github/materialsvirtuallab/megnet?branch=master&service=github)
-[![Downloads](https://pepy.tech/badge/megnet)](https://pepy.tech/project/megnet)
-[![Linting](https://github.com/materialsvirtuallab/megnet/workflows/Linting/badge.svg)](https://github.com/materialsvirtuallab/megnet/workflows/Linting/badge.svg)
-[![Testing](https://github.com/materialsvirtuallab/megnet/workflows/Testing%20-%20main/badge.svg)](https://github.com/materialsvirtuallab/megnet/workflows/Testing%20-%20main/badge.svg)
-
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/materialsvirtuallab/megnet/master)
+# Materials Discovery Benchmark
 
 
 **This materials discovery framework utilized the pretraianed MEGNet models, which has summarized (adapted from the original repo) as follows:**
