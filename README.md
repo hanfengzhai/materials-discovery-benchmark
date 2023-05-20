@@ -15,10 +15,14 @@
 ***
 
 
-Copyright (c) 2015, Regents of the University of California All rights reserved.
+
 
 <a name="megnet-framework"></a>
+
 # MEGNet framework
+
+Copyright (c) 2015, Regents of the University of California All rights reserved.
+
 
 The MatErials Graph Network (MEGNet) is an implementation of DeepMind's graph
 networks[1] for universal machine learning in materials science. We have
@@ -40,7 +44,3 @@ stacked, allowing for information flow across greater spatial distances. The
 number of blocks required depend on the range of interactions necessary to
 predict a target property. In the final step, a `set2set` is used to map the
 output to a scalar/vector property.
-
-![GraphModel architecture](resources/model_arch_small.jpg)
-<div align='center'><strong>Figure 2. Schematic of MatErials Graph Network.</strong></div>
-
