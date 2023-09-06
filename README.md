@@ -1,9 +1,8 @@
 # Materials Discovery Benchmark
 
+To run the optimization benchmark cases, please go to `inverse_opt/`
 
-**This materials discovery framework utilized the pretraianed MEGNet models, which has summarized (adapted from the original repo) as follows:**
-
-
+This materials discovery framework utilized the pre-trained MEGNet models, which have been summarized (adapted from the original repo) as follows:
 
 ***
 
